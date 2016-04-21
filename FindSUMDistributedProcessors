@@ -1,0 +1,37 @@
+1 Goals
+This assignment will introduce you to run very simple MPI-2 programs (use C) on the EXTREME cluster.
+You will familiarize yourself with simple MPI-2 calls, and how to execute programs on clusters. Your goal is
+to create a large array A of n numbers at one node (let us call it the source node), distribute blocks of the
+array across the processors, and find the global sum of the numbers in A.
+Your goal is to solve this FIND SUM problem using at least these two different logical topologies:
+1. a ring of k processors
+2. a hypercube of k = 2d processors
+You can also try 2-D mesh with wraparound, and a tree.
+Please observe the following points.
+1. You may work in pairs if you so wish.
+2. Remember to start early, because EXTREME is a shared machine and there are users from all over
+campus. You submit jobs in batch mode, and may not get the result immediately. (During bad times,
+it takes a day or more for completion of even small jobs).
+3. First get the basic programs correctly running. Then you can experiment with varying parameters,
+and more interesting variants of decomposing the workload and of MPI primitives.
+2 Experiment
+1. For each logical topology, write running code for each of the parallel formulations you design. You may
+use divide and conquer, or any other strategy for splitting your input array of numbers. Similarly for
+collecting and aggregating the partial results into a single result.
+You are encouraged to experiment with multiple approaches for each topology. For example, for the
+ring, you can collect the locally computed sums directly at the source. Or while collecting the local
+sums, each intermediate node can calculate the sum of the local sums it receives and its own local sum.
+Using different approaches will allow you to use different MPI primitives.
+2. Measure the timings for each of your approaches.
+If time permits, you can experiment with different values of n and k. The actual parameter ranges
+you vary will depend on various factors such as the workload on and the availability of the EXTREME
+nodes, OS limits etc..
+3 Input and Testing
+1. The program will take as inputs: n, k, p. Here, p is the number of physical processors (nodes) you
+use on EXTREME. Whereas k is the number of logical processors (cores). (In practice, you may be
+constrained by the sysadmin policy which does not allocate more than 7 nodes of 16 cores each.) When
+1
+k > p, multiple logical processors need to be mapped to a physical processor. The array A is created
+by one process only. You can use a random number generator or any other mechanism.
+2. While you debug your code, please work with small data sets, small number of logical nodes, and few
+physical processors i.e., small n, small k, small p
